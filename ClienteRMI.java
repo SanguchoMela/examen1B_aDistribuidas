@@ -6,10 +6,10 @@ public class ClienteRMI {
     public static void main(String[] args) {
         Scanner escaner = new Scanner(System.in);
         try {
-            // Obtener el registro 
+            // Obtener el registro
             Registry registro = LocateRegistry.getRegistry("localhost", 1099);
-    
-            // Crear instancia de la implementación la interfaz 
+
+            // Crear instancia de la implementación la interfaz
             ConversorRemoto objetoRemoto = (ConversorRemoto) registro.lookup("ClienteRemoto");
 
             int opcion = 0;
@@ -17,10 +17,8 @@ public class ClienteRMI {
             double respuesta = 0;
 
             do {
-                System.out.println("\nIngresa el numero a convertir: ");
-                numero = escaner.nextInt();
 
-                System.out.println("\nOpciones de conversion");
+                System.out.println("\nElija una opcion: ");
                 System.out.println("1. Farenheit a Celsius");
                 System.out.println("2. Celsius a Farenheit");
                 System.out.println("3. Salir");
@@ -29,20 +27,29 @@ public class ClienteRMI {
 
                 switch (opcion) {
                     case 1:
+                        System.out.print("\nIngresa la temperatura: ");
+                        numero = escaner.nextInt();
+
                         respuesta = objetoRemoto.convertirFaC(numero);
-                        System.out.println("Celsius: " + respuesta + "°C");
+                        System.out.println("\nCelsius: " + respuesta + " °C");
                         break;
                     case 2:
+                        System.out.print("\nIngresa la temperatura: ");
+                        numero = escaner.nextInt();
+
                         respuesta = objetoRemoto.convertirCaF(numero);
-                        System.out.println("Farenheit: " + respuesta + "°F");
+                        System.out.println("\nFarenheit: " + respuesta + " °F");
+                        break;
+                    case 3:
+                        System.out.println("\nAdios!");
                         break;
                     default:
-                        System.out.println("Adios!");
+                        System.out.println("Opcion no valida!");
                         break;
                 }
 
             } while (opcion != 3);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
